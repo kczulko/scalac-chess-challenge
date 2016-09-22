@@ -17,6 +17,11 @@ case class Queen(p: Position) extends Piece(p)
 
 case class Bishop(p: Position) extends Piece(p)
 
-case class Rook(p: Position) extends Piece(p)
+case class Rook(p: Position) extends Piece(p) {
+  override def attacks(other: Piece): Boolean = {
+    other.position.row == position.row ||
+      other.position.col == position.col
+  }
+}
 
 case class Knight(p: Position) extends Piece(p)
