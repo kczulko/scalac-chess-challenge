@@ -1,3 +1,3 @@
 package model
 
-case class Position(x: Int, y: Int)
+case class Position(row: Int, col: Int)
