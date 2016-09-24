@@ -13,4 +13,27 @@ case class Chessboard(pieces: List[Piece], dim: Dim) {
         }
       }
   }
+
+  override def toString: String = {
+    def pieceToString(piece: Piece): String = piece match {
+      case p: King => "K"
+      case p: Queen => "Q"
+      case p: Rook => "R"
+      case p: Bishop => "B"
+      case p: Knight => "M"
+      case _ => "?"
+    }
+
+    def toRowString(row: Seq[Position]) =
+      for {
+        position <- row
+      } yield pieces.find(_.position equals position)
+                    .map(pieceToString)
+                    .getOrElse("-")
+
+    dim.toPositionSeq.sliding(dim.cols, dim.cols)
+      .map(toRowString)
+      .map(_ mkString)
+      .mkString("\n")
+  }
 }

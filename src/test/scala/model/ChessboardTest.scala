@@ -27,4 +27,10 @@ class ChessboardTest extends FlatSpec with Matchers {
     Chessboard(List(King(3,1), King(3,3)), dim) canPlace Rook(3,2) shouldBe false
     Chessboard(List(King(3,1), King(3,3)), dim) canPlace Rook(3,3) shouldBe false
   }
+
+  "toString" should "print chessboard situation" in {
+    Chessboard(List(King(1,1), Queen(3,3)), Dim(4,3)).toString shouldEqual "K--\n---\n--Q\n---"
+    Chessboard(List(King(1,1), Queen(3,3)), Dim(4,4)).toString shouldEqual "K---\n----\n--Q-\n----"
+    Chessboard(List(King(1,1), Queen(3,3)), Dim(4,5)).toString shouldEqual "K----\n-----\n--Q--\n-----"
+  }
 }
