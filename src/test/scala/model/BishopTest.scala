@@ -2,7 +2,6 @@ package model
 
 import org.scalatest.{FlatSpec, Matchers}
 
-
 class BishopTest extends FlatSpec with Matchers {
 
   behavior of "Bishop piece"
@@ -35,15 +34,15 @@ class BishopTest extends FlatSpec with Matchers {
     piecesOnTheSameAntiDiagonal.map(bishop attacks _) should contain only true
   }
 
-  it should "return false for all pieces placed in safe s" in {
+  it should "return false for all pieces placed in safe positions" in {
     val bishop = Bishop(3,2)
-    val piecesOnTheSameAntiDiagonal = List(
+    val piecesOnSafePositions = List(
                   Bishop(2,2),            Bishop(2,4),
       Bishop(3,1),            Bishop(3,3),
                   Bishop(4,2),
       Bishop(5,1)
     )
 
-    piecesOnTheSameAntiDiagonal.map(bishop attacks _) should contain only false
+    piecesOnSafePositions.map(bishop attacks _) should contain only false
   }
 }
