@@ -1,4 +1,6 @@
 
+import scopt.OptionParser
+
 object Main {
   private[this] case class Args(rows: Int = 0,
                   cols: Int = 0,
@@ -8,7 +10,7 @@ object Main {
                   kings: Int = 0,
                   bishops: Int = 0)
 
-  private[this] class ArgsParser extends scopt.OptionParser[Args]("Scalac's chess challenge") {
+  private[this] class ArgsParser extends OptionParser[Args]("Scalac's chess challenge") {
     private[this] def withNumberValidator(failurePredicate: Int => Boolean, failureMessage: String): (Int) => Either[String, Unit] = {
       case i if failurePredicate(i) => failure(failureMessage)
       case _ => success
@@ -25,7 +27,7 @@ object Main {
       opt[Int](pieceName)
         .validate { withNumberValidator(_ < 0, s"${pieceName} number must be >= 0") }
         .text(s"amount of ${pieceName}")
-        .action { copyFun }
+        .action(copyFun)
         .optional()
 
     createDimOpt("rows")((v, args) => args.copy(rows = v))
