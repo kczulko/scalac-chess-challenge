@@ -7,10 +7,10 @@ trait Piece {
 
 case class King(position: Position) extends Piece {
   override def attacks(other: Piece): Boolean = {
-    val rowDelta = math.abs(other.position.row - position.row)
-    val colDelta = math.abs(other.position.col - position.col)
+    lazy val rowDistance = position.rowDistanceBetween(other position)
+    lazy val colDistance = position.colDistanceBetween(other position)
 
-    rowDelta <= 1 && colDelta <= 1
+    rowDistance <= 1 && colDistance <= 1
   }
 }
 
@@ -23,8 +23,9 @@ case class Queen(position: Position) extends Piece {
 
 case class Bishop(position: Position) extends Piece {
   override def attacks(other: Piece): Boolean = {
-    val d = position.distanceBetween(other.position)
-    d.rowDistance == d.colDistance
+    val rowDistance = position.rowDistanceBetween(other position)
+    val colDistance = position.colDistanceBetween(other position)
+    rowDistance == colDistance
   }
 }
 
@@ -37,9 +38,11 @@ case class Rook(position: Position) extends Piece {
 
 case class Knight(position: Position) extends Piece {
   override def attacks(other: Piece): Boolean = {
-    val d = position.distanceBetween(other.position)
+    lazy val rowDistance = position.rowDistanceBetween(other position)
+    lazy val colDistance = position.colDistanceBetween(other position)
+
     (other.position equals position) ||
-    (d.colDistance == 1 && d.rowDistance == 2) ||
-    (d.colDistance == 2 && d.rowDistance == 1)
+    (colDistance == 1 && rowDistance == 2) ||
+    (colDistance == 2 && rowDistance == 1)
   }
 }

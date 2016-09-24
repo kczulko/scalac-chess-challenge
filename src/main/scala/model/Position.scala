@@ -8,6 +8,6 @@ case class Position(row: Int, col: Int) {
   assert(row > 0)
   assert(col > 0)
 
-  def distanceBetween(other: Position): {val rowDistance: Int; val colDistance: Int} =
-    new { lazy val rowDistance = math.abs(row - other.row); lazy val colDistance = math.abs(col - other.col) }
+  def rowDistanceBetween(other: Position): Int =  math.abs(row - other.row)
+  def colDistanceBetween(other: Position): Int =  math.abs(col - other.col)
 }
