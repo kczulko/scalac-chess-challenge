@@ -5,7 +5,7 @@ case class Chessboard(pieces: List[Piece], dim: Dim) {
 
   def canPlace(candidate: Piece): Boolean = {
     candidate.position.row <= dim.rows &&
-      candidate.position.col <= dim.cols &&
+    candidate.position.col <= dim.cols &&
       {
         pieces forall { piece =>
         { piece attacks candidate equals false } &&
