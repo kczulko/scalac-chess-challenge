@@ -1,10 +1,11 @@
 package model
 
-abstract class Piece(val position: Position) {
-  def attacks(other: Piece): Boolean = ???
+trait Piece {
+  def position: Position
+  def attacks(other: Piece): Boolean
 }
 
-case class King(p: Position) extends Piece(p) {
+case class King(position: Position) extends Piece {
   override def attacks(other: Piece): Boolean = {
     val rowDelta = math.abs(other.position.row - position.row)
     val colDelta = math.abs(other.position.col - position.col)
@@ -13,15 +14,32 @@ case class King(p: Position) extends Piece(p) {
   }
 }
 
-case class Queen(p: Position) extends Piece(p)
+case class Queen(position: Position) extends Piece {
+  def attacks(other: Piece): Boolean = {
+    { Bishop(position) attacks other } ||
+    { Rook(position) attacks other }
+  }
+}
 
-case class Bishop(p: Position) extends Piece(p)
+case class Bishop(position: Position) extends Piece {
+  override def attacks(other: Piece): Boolean = {
+    val d = position.distanceBetween(other.position)
+    d.rowDistance == d.colDistance
+  }
+}
 
-case class Rook(p: Position) extends Piece(p) {
+case class Rook(position: Position) extends Piece {
   override def attacks(other: Piece): Boolean = {
     other.position.row == position.row ||
       other.position.col == position.col
   }
 }
 
-case class Knight(p: Position) extends Piece(p)
+case class Knight(position: Position) extends Piece {
+  override def attacks(other: Piece): Boolean = {
+    val d = position.distanceBetween(other.position)
+    (other.position equals position) ||
+    (d.colDistance == 1 && d.rowDistance == 2) ||
+    (d.colDistance == 2 && d.rowDistance == 1)
+  }
+}
