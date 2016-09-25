@@ -9,7 +9,7 @@ class Solver {
       candidates match {
         case first :: others => {
           for {
-            position <- currentChessboard.dim.toPositionSeq
+            position <- currentChessboard.unaffectedPositions
             newChessboard = currentChessboard.place(first(position)) if currentChessboard.canPlace(first(position))
             solution <- loop(solutions, others, newChessboard)
           } yield solution
@@ -20,4 +20,3 @@ class Solver {
     loop(List(), piecesToPlace, Chessboard(Set(), dim)).distinct
   }
 }
-

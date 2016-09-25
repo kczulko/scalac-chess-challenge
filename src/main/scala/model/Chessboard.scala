@@ -1,6 +1,10 @@
 package model
 
 case class Chessboard(pieces: Set[Piece], dim: Dim) {
+  lazy val unaffectedPositions = pieces.foldLeft(dim.toPositionSeq) {
+    (positions, piece) => positions.filter(piece attacks _ equals false)
+  }
+
   def place(piece: Piece): Chessboard = Chessboard(pieces + piece, dim)
 
   def canPlace(candidate: Piece): Boolean = {

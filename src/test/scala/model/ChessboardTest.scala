@@ -35,9 +35,13 @@ class ChessboardTest extends FlatSpec with Matchers {
   }
 
   "equals" should "return true when two chessboards contain the same pieces in different order" in {
-    val dim: Dim = Dim(4, 3)
+    val dim = Dim(4,3)
     Chessboard(Set(King(1,1), Queen(3,3)), dim) equals {
       Chessboard(Set(Queen(3,3), King(1,1)), dim)
     } shouldBe true
+  }
+
+  "unaffectedPositions" should "return list of positions which are not under attack by any piece from chessboard" in {
+    Chessboard(Set(King(1,1), Queen(3,2)), Dim(3,3)).unaffectedPositions should contain only Position(1,3)
   }
 }
