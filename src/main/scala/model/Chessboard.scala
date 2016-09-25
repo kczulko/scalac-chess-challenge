@@ -1,7 +1,7 @@
 package model
 
-case class Chessboard(pieces: List[Piece], dim: Dim) {
-  def place(piece: Piece): Chessboard = Chessboard(piece :: pieces, dim)
+case class Chessboard(pieces: Set[Piece], dim: Dim) {
+  def place(piece: Piece): Chessboard = Chessboard(pieces + piece, dim)
 
   def canPlace(candidate: Piece): Boolean = {
     candidate.position.row <= dim.rows &&

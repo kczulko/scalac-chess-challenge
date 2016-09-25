@@ -1,5 +1,9 @@
 package model
 
+object Piece {
+  type Candidate = (Position) => Piece with Product with Serializable
+}
+
 trait Piece {
   def position: Position
   def attacks(other: Piece): Boolean
@@ -15,7 +19,7 @@ case class King(position: Position) extends Piece {
 }
 
 case class Queen(position: Position) extends Piece {
-  def attacks(other: Piece): Boolean = {
+  override def attacks(other: Piece): Boolean = {
     { Bishop(position) attacks other } ||
     { Rook(position) attacks other }
   }
