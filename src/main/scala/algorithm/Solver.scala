@@ -32,10 +32,10 @@ class Solver {
     @tailrec
     def loop(intermediateResults: List[Chessboard], candidates: List[Candidate]): Seq[Chessboard] = candidates match {
       case first :: others => {
-        val nextLevelResults = intermediateResults.flatMap(toNextLevelResults(first, _))
+        val nextLevelResults = intermediateResults.flatMap(toNextLevelResults(first, _)).distinct
         loop(nextLevelResults, others)
       }
-      case _ => intermediateResults.distinct
+      case _ => intermediateResults
     }
 
     loop(List(Chessboard(Set(), dim)), piecesToPlace)

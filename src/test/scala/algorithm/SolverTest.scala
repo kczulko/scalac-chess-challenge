@@ -43,7 +43,7 @@ class SolverTest extends FlatSpec with Matchers {
     solver.findSolutions(queensSet(5), squareDim(5)).length shouldEqual 10
     solver.findSolutions(queensSet(6), squareDim(6)).length shouldEqual 4
     solver.findSolutions(queensSet(7), squareDim(7)).length shouldEqual 40
-//    solver.findSolutions(queensSet(8), squareDim(8)).length shouldEqual 92
+    solver.findSolutions(queensSet(8), squareDim(8)).length shouldEqual 92
   }
 
   it should "return empty Seq when there no possibility to find any solution" in {
