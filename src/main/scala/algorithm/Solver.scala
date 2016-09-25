@@ -3,6 +3,8 @@ package algorithm
 import model.Piece.Candidate
 import model.{Chessboard, Dim}
 
+import scala.annotation.tailrec
+
 class Solver {
   def findSolutions1(piecesToPlace: List[Candidate], dim: Dim): Seq[Chessboard] = {
     def loop(solutions: List[Chessboard], candidates: List[Candidate], currentChessboard: Chessboard): Seq[Chessboard] =
@@ -27,6 +29,7 @@ class Solver {
         .filter(chessboard canPlace _)
         .map(chessboard place _)
 
+    @tailrec
     def loop(intermediateResults: List[Chessboard], candidates: List[Candidate]): Seq[Chessboard] = candidates match {
       case first :: others => {
         val nextLevelResults = intermediateResults.flatMap(toNextLevelResults(first, _))
