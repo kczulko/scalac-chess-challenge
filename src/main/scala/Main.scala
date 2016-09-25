@@ -1,4 +1,7 @@
 
+import algorithm.Solver
+import model.Piece.Candidate
+import model._
 import scopt.OptionParser
 
 object Main {
@@ -39,11 +42,37 @@ object Main {
     createPieceOpt("knights")((v, args) => args.copy(knights = v))
   }
 
+  def mkAlgorithmParams(args: Args): (List[Candidate], Dim) = {
+    val candidates =
+      List.fill(args.queens)(Queen) ++
+      List.fill(args.rooks)(Rook) ++
+      List.fill(args.bishops)(Bishop) ++
+      List.fill(args.knights)(Knight) ++
+      List.fill(args.kings)(King)
+
+    (candidates, Dim(args.rows, args.cols))
+  }
+
+  def measureExecution[A](block: => A): (A, Double) = {
+    val nanoCoef = 1e-9
+    val start = System.nanoTime()
+    val result = block
+    val stop = System.nanoTime()
+    (result, (stop - start)*nanoCoef)
+  }
+
   def main(args: Array[String]) {
     val parser = new ArgsParser
+    val solver = new Solver
 
     parser.parse(args, Args()) match {
-      case Some(arguments) => println(arguments)
+      case Some(arguments) => {
+        val (candidates, dim) = mkAlgorithmParams(arguments)
+        val (solutions, elapsedSec) = measureExecution {
+          solver.findSolutions(candidates, dim)
+        }
+        println(s"Found ${solutions.length} solutions in ${elapsedSec} seconds")
+      }
       case _ =>
     }
   }
