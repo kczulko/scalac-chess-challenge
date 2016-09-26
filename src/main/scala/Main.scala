@@ -1,4 +1,6 @@
 
+import java.lang.System.nanoTime
+
 import algorithm.Solver
 import com.typesafe.scalalogging.Logger
 import model.Piece.Candidate
@@ -22,15 +24,15 @@ object Main {
 
     private[this] def createDimOpt(dimName: String)(copyFun: (Int, Args) => Args) =
       opt[Int](dimName)
-        .validate { withNumberValidator(_ < 0, s"${dimName} must be > 0") }
+        .validate { withNumberValidator(_ < 0, s"$dimName must be > 0") }
         .text(s"amount of chessboard $dimName")
         .action(copyFun)
         .required()
 
     private[this] def createPieceOpt(pieceName: String)(copyFun: (Int, Args) => Args) =
       opt[Int](pieceName)
-        .validate { withNumberValidator(_ < 0, s"${pieceName} number must be >= 0") }
-        .text(s"amount of ${pieceName}")
+        .validate { withNumberValidator(_ < 0, s"$pieceName number must be >= 0") }
+        .text(s"amount of $pieceName")
         .action(copyFun)
         .optional()
 
@@ -58,9 +60,9 @@ object Main {
 
   def measureExecution[A](block: => A): (A, Double) = {
     val nanoCoef = 1e-9
-    val start = System.nanoTime()
+    val start = nanoTime()
     val result = block
-    val stop = System.nanoTime()
+    val stop = nanoTime()
     (result, (stop - start)*nanoCoef)
   }
 
@@ -74,7 +76,7 @@ object Main {
         val (solutions, elapsedSec) = measureExecution {
           solver.findSolutions(candidates, dim)
         }
-        logger.info(s"Found ${solutions.length} solutions in ${elapsedSec} seconds")
+        logger.info(s"Found ${solutions.length} solutions in $elapsedSec seconds")
       }
       case _ =>
     }
