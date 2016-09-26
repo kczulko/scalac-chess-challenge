@@ -6,7 +6,7 @@ object Piece {
 
 trait Piece {
   def position: Position
-  def attacks(other: Piece): Boolean = attacks(other.position)
+  def attacks(other: Piece): Boolean = attacks(other position)
   def attacks(otherPosition: Position): Boolean
   def attacksAnyOf(others: Iterable[Piece]): Boolean = others exists attacks
 }
@@ -21,9 +21,12 @@ case class King(position: Position) extends Piece {
 }
 
 case class Queen(position: Position) extends Piece {
+  private lazy val bishop = Bishop(position)
+  private lazy val rook = Rook(position)
+
   override def attacks(otherPosition: Position): Boolean = {
-    { Bishop(position) attacks otherPosition } ||
-    { Rook(position) attacks otherPosition }
+    { bishop attacks otherPosition } ||
+    { rook attacks otherPosition }
   }
 }
 
