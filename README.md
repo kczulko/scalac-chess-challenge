@@ -51,7 +51,7 @@ just after launching
 ```
 sbt 'run --rows 7...'
 ```
-and assure that '-Xmx4G' and '-XX:+UseConcMarkAndSweepGC' options are enabled for VM which is running sbt. If your sbt launcher is ignoring .sbtopts then please try some other solution, e.g.
+and assure that '-Xmx4G' and '-XX:+UseConcMarkSweepGC' options are enabled for VM which is running sbt. If your sbt launcher is ignoring .sbtopts then please try some other solution, e.g.
 ```
-env SBT_OPTS="-Xmx4G -XX:+UseConcMarkAndSweepGC" sbt 'run --rows 7 ...'
+env SBT_OPTS="-Xmx4G -XX:+UseConcMarkSweepGC" sbt 'run --rows 7 ...'
 ```
