@@ -15,10 +15,11 @@ There are 3063828 unique solutions. Execution time was ~22 seconds (VMWarePlayer
 
 # Understanding the problem
 Chess board with size 7x7 contains 49 unique positions. The problem of setting 7 pieces (2 Kings, 2 Queens, 2 Bishops and 1 Knight) on this chess board can be explained as a typical combinatorics problem (more concisely 'permutations without repetition'). More info here:
+
 * https://pl.wikipedia.org/wiki/Wariacja_bez_powt%C3%B3rze%C5%84 (polish)
 * http://www.emathematics.net/combinapermutaciones.php (english)
 
-Following the general formula for this problem:
+Following the general formula:
 
 ![N|Solid](https://wikimedia.org/api/rest_v1/media/math/render/svg/515c1d989702311cb96007667c5a44104323a6ef)
 
