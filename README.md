@@ -23,7 +23,7 @@ Following the general formula:
 
 ![N|Solid](https://wikimedia.org/api/rest_v1/media/math/render/svg/515c1d989702311cb96007667c5a44104323a6ef)
 
-one can apply n = 49 (7x7 chessboard positions) and k = 7 (7 pieces to set) which gives 439238943360 possible pieces combination on 7x7 board. Instead of brute force approach more efficient one is based on 'in-vivo' tree population. So having a chess board with some pieces already set, one can place another piece by choosing all of available positions and placing this piece sequentially on each one available position. It leads to populating another level of chessboards. Repetition of this step for other unplaced pieces will remarkably reduce number of possible solutions which results in efficient and fast answer.
+One can apply n = 49 (7x7 chessboard positions) and k = 7 (7 pieces to set) which gives 439238943360 possible pieces combination on 7x7 board. Instead of brute force approach more efficient one is based on 'in-vivo' tree population. So having a chess board with some pieces already set, one can place another piece by choosing all of available positions and placing this piece sequentially on each one available position. It leads to populating another level of chessboards. Repetition of this step for other unplaced pieces will remarkably reduce number of possible solutions which results in efficient and fast answer.
 
 # Application profiling
 
