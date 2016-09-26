@@ -15,8 +15,8 @@ There are 3063828 unique solutions. Execution time was ~22 seconds (VMWarePlayer
 
 # Understanding the problem
 Chess board with size 7x7 contains 49 unique positions. The problem of setting 7 pieces (2 Kings, 2 Queens, 2 Bishops and 1 Knight) on this chess board can be explained as a typical combinatorics problem (more concisely 'permutations without repetition'). More info here:
- - https://pl.wikipedia.org/wiki/Wariacja_bez_powt%C3%B3rze%C5%84 (polish)
- - http://www.emathematics.net/combinapermutaciones.php (english)
+* https://pl.wikipedia.org/wiki/Wariacja_bez_powt%C3%B3rze%C5%84 (polish)
+* http://www.emathematics.net/combinapermutaciones.php (english)
 
 Following the general formula for this problem:
 
@@ -42,7 +42,7 @@ Parameters are self explained :)
 sbt 'run --rows 7 --cols 7 --queens 2 --bishops 2 --kings 2 --knights 1 --print 15'
 ```
 ### WARNING: 
-This sbt running method is using JVM options to set total amount of memory and specific garbage collector (profiling enhancement). This solution was tested with sbt 0.13.12 and there is no guarantee that local .sbtopts won't be ignored by other sbt launcher (probably sbt 0.13.11 ignores local .sbtopts). To ensure that your sbt supports local .sbtopts please execute 
+This sbt running method is using JVM options to set total amount of memory and specific garbage collector (profiling enhancement). It was tested with sbt 0.13.12 and there is no guarantee that local .sbtopts won't be ignored by other sbt launcher (probably sbt 0.13.11 ignores local .sbtopts). To ensure that your sbt supports local .sbtopts please execute 
 ```
 jps -lvm
 ```
