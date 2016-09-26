@@ -47,8 +47,8 @@ object Main {
       List.fill(args.queens)(Queen) ++
       List.fill(args.rooks)(Rook) ++
       List.fill(args.bishops)(Bishop) ++
-      List.fill(args.knights)(Knight) ++
-      List.fill(args.kings)(King)
+      List.fill(args.kings)(King) ++
+      List.fill(args.knights)(Knight)
 
     (candidates, Dim(args.rows, args.cols))
   }
