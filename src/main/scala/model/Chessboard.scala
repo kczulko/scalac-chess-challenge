@@ -1,22 +1,17 @@
 package model
 
-case class Chessboard(pieces: Set[Piece], dim: Dim) {
-  lazy val unaffectedPositions = pieces.foldLeft(dim.toPositionSeq) {
-    (positions, piece) => positions.filter(piece attacks _ equals false)
+case class Chessboard(pieces: Set[Piece], dim: Dim, private val availablePositions: Option[Seq[Position]] = None) {
+  lazy val unaffectedPositions = availablePositions getOrElse {
+    pieces.foldLeft(dim.toPositionSeq) {
+      (positions, piece) => positions.filterNot { piece attacks }
+    }
   }
 
-  def place(piece: Piece): Chessboard = Chessboard(pieces + piece, dim)
-
-  def canPlace(candidate: Piece): Boolean = {
-    candidate.position.row <= dim.rows &&
-    candidate.position.col <= dim.cols &&
-      {
-        pieces forall { piece =>
-        { piece attacks candidate equals false } &&
-          { candidate attacks piece equals false }
-        }
-      }
-  }
+  def place(piece: Piece): Chessboard = Chessboard(
+    pieces + piece,
+    dim,
+    Some(unaffectedPositions.filterNot { piece attacks })
+  )
 
   override def toString: String = {
     def pieceToString(piece: Piece): String = piece match {

@@ -8,6 +8,7 @@ trait Piece {
   def position: Position
   def attacks(other: Piece): Boolean = attacks(other.position)
   def attacks(otherPosition: Position): Boolean
+  def attacksAnyOf(others: Iterable[Piece]): Boolean = others exists attacks
 }
 
 case class King(position: Position) extends Piece {
