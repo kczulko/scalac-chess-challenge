@@ -31,9 +31,9 @@ Application was profiled with a huge help of '-Xprof' JVM option. First algorith
 
 # Tests
 To run tests with sbt please execute:
-'''
+```
 sbt testOnly
-'''
+```
 
 # Application
 
