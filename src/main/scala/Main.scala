@@ -1,5 +1,6 @@
 
 import algorithm.Solver
+import com.typesafe.scalalogging.Logger
 import model.Piece.Candidate
 import model._
 import scopt.OptionParser
@@ -42,6 +43,8 @@ object Main {
     createPieceOpt("knights")((v, args) => args.copy(knights = v))
   }
 
+  private val logger = Logger("main")
+
   def mkAlgorithmParams(args: Args): (List[Candidate], Dim) = {
     val candidates =
       List.fill(args.queens)(Queen) ++
@@ -71,7 +74,7 @@ object Main {
         val (solutions, elapsedSec) = measureExecution {
           solver.findSolutions(candidates, dim)
         }
-        println(s"Found ${solutions.length} solutions in ${elapsedSec} seconds")
+        logger.info(s"Found ${solutions.length} solutions in ${elapsedSec} seconds")
       }
       case _ =>
     }

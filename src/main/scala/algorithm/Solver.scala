@@ -1,5 +1,6 @@
 package algorithm
 
+import com.typesafe.scalalogging.Logger
 import model.Piece.Candidate
 import model.{Chessboard, Dim}
 
@@ -7,6 +8,9 @@ import scala.annotation.tailrec
 import scala.collection.parallel.ParSet
 
 class Solver {
+
+  private val logger = Logger[Solver]
+
   def findSolutions(piecesToPlace: List[Candidate], dim: Dim): Seq[Chessboard] = {
     def toNextLevelResults(candidate: Candidate, chessboard: Chessboard): Seq[Chessboard] =
       chessboard.unaffectedPositions
@@ -18,9 +22,8 @@ class Solver {
     @tailrec
     def loop(intermediateResults: ParSet[Chessboard], candidates: List[Candidate]): ParSet[Chessboard] = candidates match {
       case first :: others => {
-        println(s"Starting iteration. There are still ${others.length} iterations left...")
+        logger.info(s"Placing piece... There are still ${others.length} pieces left to place...")
         val nextLevelResults = intermediateResults.flatMap(toNextLevelResults(first, _))
-        println(s"Iteration finished. Processed ${intermediateResults.size} chessboards.")
         loop(nextLevelResults, others)
       }
       case _ => intermediateResults
