@@ -109,3 +109,4 @@ Application was profiled with in use of '-Xprof' JVM option. First algorithm ver
 # TODO
 1. Property-based testing.
 2. Cache for each piece placed on each position instead of ```.map(candidate)``` call.
+3. scalafmt
