@@ -87,7 +87,7 @@ $ sbt scalastyle
 ## Code coverage
 
 ```
-$ sbt coverageReport
+$ sbt clean coverage test coverageReport
 ```
 
 # Understanding the problem
