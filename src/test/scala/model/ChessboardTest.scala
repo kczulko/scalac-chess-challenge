@@ -21,10 +21,12 @@ class ChessboardTest extends FlatSpec with Matchers {
       .map(tupleToPosition)
   }
 
-  "toString" should "print chessboard situation" in {
-    Chessboard(Set(King(1,1), Queen(3,3)), Dim(4,3)).toString shouldEqual "K--\n---\n--Q\n---"
-    Chessboard(Set(King(1,1), Queen(3,3)), Dim(4,4)).toString shouldEqual "K---\n----\n--Q-\n----"
-    Chessboard(Set(King(1,1), Queen(3,3)), Dim(4,5)).toString shouldEqual "K----\n-----\n--Q--\n-----"
+  "asString" should "print chessboard situation" in {
+    Chessboard(Set(King(1,1), Queen(3,3)), Dim(4,3)).asString shouldEqual "K--\n---\n--Q\n---"
+    Chessboard(Set(King(1,1), Queen(3,3)), Dim(4,4)).asString shouldEqual "K---\n----\n--Q-\n----"
+    Chessboard(Set(King(1,1), Queen(3,3)), Dim(4,5)).asString shouldEqual "K----\n-----\n--Q--\n-----"
+
+    Chessboard(Set(Rook(2,2), Knight(3,1), Bishop(2,1)), Dim(3,3)).asString shouldEqual "---\nBR-\nN--"
   }
 
   "equals" should "return true when two chessboards contain the same pieces in different order" in {

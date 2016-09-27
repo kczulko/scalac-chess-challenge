@@ -6,7 +6,7 @@ class KingTest extends FlatSpec with Matchers {
 
   behavior of "King piece"
 
-  "attacks" should "return true for all other pieces which are in King's neighbourhood" in {
+  "attacks" should "return true for all other pieces which are in King's neighborhood" in {
     val king = King(3,3)
     val othersUnderAttack = List(
       King(2,2), King(2,3), King(2,4),

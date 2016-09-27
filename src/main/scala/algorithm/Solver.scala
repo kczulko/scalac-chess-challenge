@@ -14,18 +14,17 @@ class Solver {
   def findSolutions(piecesToPlace: List[Candidate], dim: Dim): Seq[Chessboard] = {
     def toNextLevelResults(candidate: Candidate, chessboard: Chessboard): Seq[Chessboard] =
       chessboard.unaffectedPositions
-        .map(candidate(_))
+        .map(candidate)
         .collect({
           case thisPiece if thisPiece attacksAnyOf chessboard.pieces equals false => chessboard place thisPiece
         })
 
     @tailrec
     def loop(intermediateResults: ParSet[Chessboard], candidates: List[Candidate]): ParSet[Chessboard] = candidates match {
-      case first :: others => {
-        logger.info(s"Placing piece... There are still ${others.length} pieces left to place...")
-        val nextLevelResults = intermediateResults.flatMap(toNextLevelResults(first, _))
+      case candidate :: others =>
+        logger.info(s"Placing piece... There are still ${others.length} pieces left to place.")
+        val nextLevelResults = intermediateResults.flatMap(toNextLevelResults(candidate, _))
         loop(nextLevelResults, others)
-      }
       case _ => intermediateResults
     }
 

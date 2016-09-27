@@ -5,6 +5,7 @@ object Piece {
 }
 
 trait Piece {
+  def identifier: Char
   def position: Position
   def attacks(other: Piece): Boolean = attacks(other position)
   def attacks(otherPosition: Position): Boolean
@@ -18,6 +19,8 @@ case class King(position: Position) extends Piece {
 
     rowDistance <= 1 && colDistance <= 1
   }
+
+  override def identifier: Char = 'K'
 }
 
 case class Queen(position: Position) extends Piece {
@@ -28,6 +31,8 @@ case class Queen(position: Position) extends Piece {
     { bishop attacks otherPosition } ||
     { rook attacks otherPosition }
   }
+
+  override def identifier: Char = 'Q'
 }
 
 case class Bishop(position: Position) extends Piece {
@@ -36,6 +41,8 @@ case class Bishop(position: Position) extends Piece {
     val colDistance = position colDistanceBetween otherPosition
     rowDistance == colDistance
   }
+
+  override def identifier: Char = 'B'
 }
 
 case class Rook(position: Position) extends Piece {
@@ -43,6 +50,8 @@ case class Rook(position: Position) extends Piece {
     otherPosition.row == position.row ||
       otherPosition.col == position.col
   }
+
+  override def identifier: Char = 'R'
 }
 
 case class Knight(position: Position) extends Piece {
@@ -54,4 +63,6 @@ case class Knight(position: Position) extends Piece {
     (colDistance == 1 && rowDistance == 2) ||
     (colDistance == 2 && rowDistance == 1)
   }
+
+  override def identifier: Char = 'N'
 }

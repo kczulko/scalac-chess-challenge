@@ -9,12 +9,13 @@ import scopt.OptionParser
 
 object Main {
   private[this] case class Args(rows: Int = 0,
-                  cols: Int = 0,
-                  queens: Int = 0,
-                  rooks: Int = 0,
-                  knights: Int = 0,
-                  kings: Int = 0,
-                  bishops: Int = 0)
+                                cols: Int = 0,
+                                print: Int = 0,
+                                rooks: Int = 0,
+                                kings: Int = 0,
+                                queens: Int = 0,
+                                knights: Int = 0,
+                                bishops: Int = 0)
 
   private[this] class ArgsParser extends OptionParser[Args]("Scalac's chess challenge") {
     private[this] def withNumberValidator(failurePredicate: Int => Boolean, failureMessage: String): (Int) => Either[String, Unit] = {
@@ -22,27 +23,26 @@ object Main {
       case _ => success
     }
 
-    private[this] def createDimOpt(dimName: String)(copyFun: (Int, Args) => Args) =
-      opt[Int](dimName)
-        .validate { withNumberValidator(_ < 0, s"$dimName must be > 0") }
-        .text(s"amount of chessboard $dimName")
+    private[this] def createIntOpt(optName: String)
+                                    (failurePredicate: Int => Boolean, failureMsg: String)
+                                    (copyFun: (Int, Args) => Args)
+                                    (text: String = s"""number of $optName""") =
+      opt[Int](optName)
+        .validate { withNumberValidator(failurePredicate, failureMsg) }
+        .text(text)
         .action(copyFun)
-        .required()
 
-    private[this] def createPieceOpt(pieceName: String)(copyFun: (Int, Args) => Args) =
-      opt[Int](pieceName)
-        .validate { withNumberValidator(_ < 0, s"$pieceName number must be >= 0") }
-        .text(s"amount of $pieceName")
-        .action(copyFun)
-        .optional()
-
-    createDimOpt("rows")((v, args) => args.copy(rows = v))
-    createDimOpt("cols")((v, args) => args.copy(cols = v))
-    createPieceOpt("kings")((v, args) => args.copy(kings = v))
-    createPieceOpt("queens")((v, args) => args.copy(queens = v))
-    createPieceOpt("bishops")((v, args) => args.copy(bishops = v))
-    createPieceOpt("rooks")((v, args) => args.copy(rooks = v))
-    createPieceOpt("knights")((v, args) => args.copy(knights = v))
+    createIntOpt("rows")(_ <= 0, "rows must be > 0")((v, args) => args.copy(rows = v))() required()
+    createIntOpt("cols")(_ <= 0, "rows must be > 0")((v, args) => args.copy(cols = v))() required()
+    createIntOpt("kings")(_ < 0, "kings must be >= 0")((v, args) => args.copy(kings = v))() optional()
+    createIntOpt("rooks")(_ < 0, "rooks must be >= 0")((v, args) => args.copy(rooks = v))() optional()
+    createIntOpt("queens")(_ < 0, "queens must be >= 0")((v, args) => args.copy(queens = v))() optional()
+    createIntOpt("bishops")(_ < 0, "bishops must be >= 0")((v, args) => args.copy(bishops = v))() optional()
+    createIntOpt("knights")(_ < 0, "knights must be >= 0")((v, args) => args.copy(knights = v))() optional()
+    createIntOpt("print")(_ < 0, "print must be >= 0")((v, args) => args.copy(print = v)) (
+      "number of boards to print"
+    ) optional()
+    help("help") text "prints this usage"
   }
 
   private val logger = Logger("main")
@@ -71,13 +71,18 @@ object Main {
     val solver = new Solver
 
     parser.parse(args, Args()) match {
-      case Some(arguments) => {
+      case Some(arguments) =>
         val (candidates, dim) = mkAlgorithmParams(arguments)
         val (solutions, elapsedSec) = measureExecution {
           solver.findSolutions(candidates, dim)
         }
         logger.info(s"Found ${solutions.length} solutions in $elapsedSec seconds")
-      }
+        logger.info(s"Printing no more than ${arguments.print} solutions: \n${
+          solutions
+            .take(arguments.print)
+            .map(_.asString)
+            .mkString("\n\n")
+        }")
       case _ =>
     }
   }
