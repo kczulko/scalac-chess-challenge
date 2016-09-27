@@ -47,7 +47,7 @@ object Main {
 
   private val logger = Logger("main")
 
-  def mkAlgorithmParams(args: Args): (List[Candidate], Dim) = {
+  private def mkAlgorithmParams(args: Args): (List[Candidate], Dim) = {
     val candidates =
       List.fill(args.queens)(Queen) ++
       List.fill(args.rooks)(Rook) ++
@@ -58,7 +58,7 @@ object Main {
     (candidates, Dim(args.rows, args.cols))
   }
 
-  def measureExecution[A](block: => A): (A, Double) = {
+  private def measureExecution[A](block: => A): (A, Double) = {
     val nanoCoef = 1e-9
     val start = nanoTime()
     val result = block
@@ -77,7 +77,7 @@ object Main {
           solver.findSolutions(candidates, dim)
         }
         logger.info(s"Found ${solutions.length} solutions in $elapsedSec seconds")
-        logger.info(s"Printing no more than ${arguments.print} solutions: \n${
+        logger.info(s"Printing no more than ${arguments.print} solutions:\n${
           solutions
             .take(arguments.print)
             .map(_.asString)
