@@ -79,7 +79,7 @@ K------
 ```
 
 ### WARNING: 
-This sbt running method is using JVM options to set total amount of memory and specific garbage collector (profiling enhancement). It was tested with sbt 0.13.12 and there is no guarantee that local .sbtopts won't be ignored by other sbt launcher (probably sbt 0.13.11 ignores local .sbtopts). To ensure that your sbt supports local .sbtopts please execute 
+This execution method (through sbt run) is using JVM options to set total amount of memory and specific garbage collector (profiling enhancement). It was tested with sbt 0.13.12 and there is no guarantee that local .sbtopts won't be ignored by other sbt launcher (probably sbt 0.13.11 ignores local .sbtopts). To ensure that your sbt supports local .sbtopts please execute 
 ```
 jps -lvm
 ```
