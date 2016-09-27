@@ -33,7 +33,7 @@ Usage: Scalac's chess challenge [options]
 Exception: sbt.TrapExitSecurityException thrown from the UncaughtExceptionHandler in thread "run-main-0"
 [success] Total time: 1 s, completed Sep 27, 2016 7:08:02 PM
 ```
-
+Running Scalac's chess challenge task:
 ```
 $ sbt 'run --rows 7 --cols 7 --queens 2 --kings 2 --bishops 2 --knights 1 --print 1'
 [info] Loading project definition from /home/kczulko/scala/scalac-chess-challenge/project
