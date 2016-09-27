@@ -14,7 +14,7 @@ class KingTest extends FlatSpec with Matchers {
       King(4,2), King(4,3), King(4,4)
     )
 
-    othersUnderAttack.map(king attacks _) should contain only true
+    othersUnderAttack.map(king attacks) should contain only true
   }
 
   it should "return false for pieces that are positioned on 'safe' places" in {
@@ -27,7 +27,7 @@ class KingTest extends FlatSpec with Matchers {
       King(5,1), King(5,2), King(5,3), King(5,4), King(5,5)
     )
 
-    safePieces.map(king attacks _) should contain only false
+    safePieces.map(king attacks) should contain only false
   }
 
   it should "return true when other piece is on the same position" in {

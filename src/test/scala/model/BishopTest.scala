@@ -19,7 +19,7 @@ class BishopTest extends FlatSpec with Matchers {
                                      Bishop(5,4)
     )
 
-    piecesOnTheSameDiagonal.map(bishop attacks _) should contain only true
+    piecesOnTheSameDiagonal.map(bishop attacks) should contain only true
   }
 
   it should "return true for all pieces placed in the same anti-diagonal" in {
@@ -31,7 +31,7 @@ class BishopTest extends FlatSpec with Matchers {
       Bishop(5,1)
     )
 
-    piecesOnTheSameAntiDiagonal.map(bishop attacks _) should contain only true
+    piecesOnTheSameAntiDiagonal.map(bishop attacks) should contain only true
   }
 
   it should "return false for all pieces placed in safe positions" in {
@@ -43,6 +43,6 @@ class BishopTest extends FlatSpec with Matchers {
       Bishop(5,1)
     )
 
-    piecesOnSafePositions.map(bishop attacks _) should contain only false
+    piecesOnSafePositions.map(bishop attacks) should contain only false
   }
 }
