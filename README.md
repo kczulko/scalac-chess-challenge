@@ -103,3 +103,9 @@ $ sbt testOnly
 ```
 $ sbt scalastyle
 ```
+
+## Code coverage
+
+```
+$ sbt coverageReport
+```
