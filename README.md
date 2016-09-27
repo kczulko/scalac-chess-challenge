@@ -47,7 +47,7 @@ Usage: Scalac's chess challenge [options]
   --queens <value>   number of queens
   --bishops <value>  number of bishops
   --knights <value>  number of knights
-  --print <value>    number of chess boards to print
+  --print <value>    number of boards to print
   --help             prints this usage
 
 Exception: sbt.TrapExitSecurityException thrown from the UncaughtExceptionHandler in thread "run-main-0"
