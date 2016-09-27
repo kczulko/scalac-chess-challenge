@@ -107,4 +107,5 @@ One can apply n = 49 (7x7 chessboard positions) and k = 7 (7 pieces to set) whic
 Application was profiled with in use of '-Xprof' JVM option. First algorithm version was based on 'for-comprehension'. It was sequential in nature and had poor performance. Implementation was using backtracking algorithm with stack-unsafe recursive calls. Second algorithm version is fully tail-recursive. Reaching this stack-safe implementation was crucial for the task. It had opened a possibility for parallel computations which in fact helped to reduce performance bottlenecks. Another profiling enhancement, which reduced number of processed cases (branches), introduced only distinct intermediate solutions as input data for the next algorithm iteration. Intermediate solutions uniqueness was initially reached by a List::distinct call, but in fact it had poor performance which one could notice either in '-Xprof' JVM output or in a debug mode. Solution was to use Set instead of List which assures uniqueness of its elements by default (probably there is also some special enhancement for flat map combiner in ParSet implementation (?))
 
 # TODO
-1. Property-based testing
+1. Property-based testing.
+2. Cache for each piece placed on each position instead of ```.map(candidate)``` call.
