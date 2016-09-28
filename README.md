@@ -110,7 +110,7 @@ Application was profiled with '-Xprof' JVM option. First algorithm version was b
 As far as order of placing pieces on chess boards doesn't affect final result (in fact algorithm had place them all), it may change total execution time. To get program execution as fast as possible, algorithm has to keep chess boards tree as narrow as possible. Therefore the best approach is to sort input pieces by the amount of fields that each piece type is affecting on a chess board. For example, if user executes program in the following way:
 
 ```
-sbt 'run --row 8 --col 8 --kings 2 --bishops 1 --queens 2'
+$ sbt 'run --row 8 --col 8 --kings 2 --bishops 1 --queens 2'
 ```
 
 the best approach to keep narrow chess boards tree will be to sort input pieces and represent it as a list in the following order: {Queen, Queen, Bishop, King, King} (queens first since they occupy the most positions; kings last since they ocupy no more than 8 positions). Now processing each piece, one by one from left to right, will minimize number of analysed cases (keeping tree 'narrow') and gives low execution time.
